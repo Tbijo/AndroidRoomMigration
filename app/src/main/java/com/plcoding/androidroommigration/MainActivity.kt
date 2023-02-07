@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
             applicationContext,
             UserDatabase::class.java,
             "users.db"
+        // Adding manual migrations
         ).addMigrations(UserDatabase.migration3To4).build()
 
         lifecycleScope.launch {

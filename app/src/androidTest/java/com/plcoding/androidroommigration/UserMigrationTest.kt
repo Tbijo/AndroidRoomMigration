@@ -15,6 +15,7 @@ private const val DB_NAME = "test"
 @RunWith(AndroidJUnit4::class)
 class UserMigrationTest {
 
+    // @get:Rule - add new behaviour to our use cases, get access to special functionality in our case Room
     @get:Rule
     val helper = MigrationTestHelper(
         InstrumentationRegistry.getInstrumentation(),
@@ -23,6 +24,7 @@ class UserMigrationTest {
         FrameworkSQLiteOpenHelperFactory()
     )
 
+    // We could test a specific migration from 1 to 2
     @Test
     fun migration1To2_containsCorrectData() {
         var db = helper.createDatabase(DB_NAME, 1).apply {
@@ -38,8 +40,10 @@ class UserMigrationTest {
         }
     }
 
+    // Or run all of our migrations to see if there are some issues
     @Test
     fun testAllMigrations() {
+        // create db and close it because we dont want to add anything
         helper.createDatabase(DB_NAME, 1).apply { close() }
 
         Room.databaseBuilder(

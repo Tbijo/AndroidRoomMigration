@@ -19,12 +19,17 @@ android {
             useSupportLibrary true
         }
 
+        // room will export database schema (JSON file)
+        // each JSON file corresponds to a specific database version in which the schema is saved
         kapt {
             arguments {
                 arg("room.schemaLocation", "$projectDir/schemas")
             }
         }
     }
+    // For testing purposes
+    // androidTest is a directory for instrumented tests
+    // we want to add schemas dir to androidTest so that the tests can reach schemas
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
